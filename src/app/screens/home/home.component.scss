@@ -1,0 +1,28 @@
+$button-bg-color: #B7DEE8;
+$button-text-color: #2c3e50;
+$button-bg-hover: darken($button-bg-color, 10%);
+
+// AQUÍ ESTÁ LA CORRECCIÓN: Definimos el color base como una variable SCSS
+$navbar-text-base-color: #5D4037;
+
+// --- Contenedor principal ---
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  height: calc(100vh - 64px);
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+// --- Mensaje de bienvenida ---
+.welcome-message {
+  text-align: center;
+  color: $navbar-text-base-color; // Usamos la variable SCSS aquí
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+}
+

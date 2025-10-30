@@ -1,0 +1,16 @@
+@import '../editar-producto/editar-producto.component.scss';
+
+input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+// Asegurarnos de que el select se vea bien
+.form-select {
+  border-radius: 8px;
+   &:focus {
+    border-color: var(--primary-color, #007bff); // Usa la variable si existe, si no, usa azul
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb, 0, 123, 255), 0.25); // Lo mismo para el shadow
+  }
+}

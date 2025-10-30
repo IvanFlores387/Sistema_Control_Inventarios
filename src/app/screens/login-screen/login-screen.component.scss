@@ -1,0 +1,9 @@
+@import '../crear-producto/crear-producto.component.scss';
+
+// 2. (Opcional) Añadimos estilos específicos solo para el login, si es necesario.
+.form-subtitle {
+  text-align: center;
+  color: #6c757d; // Un color gris para el subtítulo
+  margin-top: 0.3rem;
+  margin-bottom: 1.5rem;
+}

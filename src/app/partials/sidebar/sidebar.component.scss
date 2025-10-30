@@ -1,0 +1,84 @@
+$sidebar-width: 80px; // Ancho de la barra vertical (puedes ajustarlo)
+$sidebar-bg: #FABF8F; // Mismo color que el navbar
+$sidebar-text-color: #5D4037;
+$link-hover-bg: rgba(0, 0, 0, 0.1);
+$link-active-bg: rgba(0, 0, 0, 0.2);
+$logout-color: #dc3545;
+$logout-hover-bg: rgba(220, 53, 69, 0.1);
+
+:host {
+  display: block; // Necesario para que ocupe su espacio
+  width: $sidebar-width;
+  height: calc(100vh - 64px); // Altura: toda la pantalla menos el navbar (ajusta 64px si tu navbar es diferente)
+  background-color: $sidebar-bg;
+  position: fixed; // Fijo en la pantalla
+  top: 64px; // Posicionado justo debajo del navbar (ajusta 64px si es necesario)
+  left: 0;
+  padding-top: 1rem; // Espacio arriba
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999; // Ligeramente por debajo del navbar
+}
+
+.vertical-button-nav {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; // Botones en vertical
+    align-items: center; // Centrar iconos/texto
+  }
+
+  li {
+    width: 100%; // Ocupar todo el ancho del sidebar
+  }
+
+  li a, .btn-logout-vertical {
+    display: flex;
+    flex-direction: column; // Icono arriba, texto abajo
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 0.5rem; // Padding vertical > horizontal
+    color: $sidebar-text-color;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    width: 100%;
+    border-radius: 0; // Sin bordes redondeados internos
+
+    i {
+      font-size: 1.5rem; // Iconos más grandes
+      margin-bottom: 0.25rem; // Espacio entre icono y texto
+    }
+
+    span {
+      font-size: 0.75rem; // Texto más pequeño
+      display: block; // Asegura que esté debajo
+      line-height: 1.2;
+    }
+
+    &:hover {
+      background-color: $link-hover-bg;
+    }
+
+    &.active {
+      background-color: $link-active-bg;
+      font-weight: 500;
+    }
+  }
+
+  .btn-logout-vertical {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+
+      i { color: $logout-color; }
+      span { color: $sidebar-text-color; } // Texto normal
+
+      &:hover {
+         background-color: $logout-hover-bg;
+         i, span { color: darken($logout-color, 10%); }
+      }
+  }
+}

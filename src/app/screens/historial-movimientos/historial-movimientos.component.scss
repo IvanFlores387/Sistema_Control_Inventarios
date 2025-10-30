@@ -1,0 +1,19 @@
+@import '../lista/lista.component.scss';
+
+// Estilos específicos para las "badges" de tipo
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.6em;
+  font-weight: 600;
+
+  &.bg-success {
+    background-color: #198754 !important; // Verde para entradas
+  }
+  &.bg-danger {
+    background-color: #dc3545 !important; // Rojo para salidas
+  }
+}
+
+// Para que el texto de cantidad sea más notorio
+.text-success { color: #157347 !important; }
+.text-danger { color: #bb2d3b !important; }

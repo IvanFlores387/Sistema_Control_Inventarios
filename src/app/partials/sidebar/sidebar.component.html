@@ -1,0 +1,46 @@
+<nav class="vertical-button-nav">
+  <ul>
+    <li>
+      <a routerLink="/home" routerLinkActive="active" title="Inicio">
+        <i class="bi bi-house-door"></i>
+        <span>Inicio</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/listap" routerLinkActive="active" title="Productos">
+        <i class="bi bi-boxes"></i>
+        <span>Lista de Productos</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/gestionarusuarios" routerLinkActive="active" title="Productos">
+        <i class="bi bi-person"></i>
+        <span>Lista de Usuarios</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/crear" routerLinkActive="active" title="Productos">
+        <i class="bi bi-star"></i>
+        <span>Nuevo producto</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/entradas" routerLinkActive="active" title="Productos">
+        <i class="bi bi-door-open"></i>
+        <span>Registro Entrada</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/salidas" routerLinkActive="active" title="Productos">
+        <i class="bi bi-cart"></i>
+        <span>Registro Salida</span>
+      </a>
+    </li>
+    <li>
+       <button class="btn btn-logout-vertical" (click)="logout()" title="Cerrar Sesión">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Salir</span>
+        </button>
+    </li>
+  </ul>
+</nav>

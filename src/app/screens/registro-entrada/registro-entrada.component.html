@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="form-container">
+
+  <!-- Botón de Regresar (usa el método goBack() del .ts) -->
+  <button type="button" class="btn-back" (click)="goBack()" title="Regresar">
+    <i class="bi bi-arrow-left-circle-fill"></i>
+    <span>Regresar</span>
+  </button>
+
+  <!-- Título del formulario -->
+  <h3 class="form-title">Registrar Entrada de Inventario</h3>
+
+  <!-- Mensajes de Feedback (éxito o error) -->
+  <div *ngIf="mensajeExito" class="alert alert-success mt-3">
+    {{ mensajeExito }}
+  </div>
+  <div *ngIf="mensajeError" class="alert alert-danger mt-3">
+    {{ mensajeError }}
+  </div>
+
+  <!-- Formulario (conectado a 'entradaForm' y al método 'onSubmit') -->
+  <form [formGroup]="entradaForm" (ngSubmit)="onSubmit()" class="mt-4">
+
+    <!-- Campo SKU -->
+    <div class="mb-3">
+      <label for="sku" class="form-label">SKU del Producto</label>
+      <input
+        type="text"
+        id="sku"
+        formControlName="SKU"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': entradaForm.get('SKU')?.invalid && entradaForm.get('SKU')?.touched }">
+
+      <!-- Mensajes de validación para SKU -->
+      <div *ngIf="entradaForm.get('SKU')?.invalid && entradaForm.get('SKU')?.touched" class="invalid-feedback">
+        El SKU es obligatorio.
+      </div>
+    </div>
+
+    <!-- Campo Cantidad -->
+    <div class="mb-3">
+      <label for="cantidad" class="form-label">Cantidad a Ingresar</label>
+      <input
+        type="number"
+        id="cantidad"
+        formControlName="Cantidad"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': entradaForm.get('Cantidad')?.invalid && entradaForm.get('Cantidad')?.touched }">
+
+      <!-- Mensajes de validación para Cantidad -->
+      <div *ngIf="entradaForm.get('Cantidad')?.invalid && entradaForm.get('Cantidad')?.touched" class="invalid-feedback">
+        <div *ngIf="entradaForm.get('Cantidad')?.errors?.['required']">La cantidad es obligatoria.</div>
+        <div *ngIf="entradaForm.get('Cantidad')?.errors?.['min']">La cantidad debe ser al menos 1.</div>
+      </div>
+    </div>
+
+    <!-- Botón de Envío (reutiliza el estilo del botón centrado) -->
+    <div class="btn-submit-container">
+      <button type="submit" class="btn btn-primary" [disabled]="entradaForm.invalid || isLoading">
+        <!-- Muestra el texto o un spinner si está cargando -->
+        <span *ngIf="!isLoading">Registrar Entrada</span>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+
+  </form>
+</div>

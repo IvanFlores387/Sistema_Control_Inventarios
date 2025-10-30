@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="container mt-4">
+  <button type="button" class="btn-back" (click)="goBack()" title="Regresar a la página anterior">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+      <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+    </svg>
+    <span>Regresar</span>
+  </button>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Gestionar Usuarios</h2>
+        <a routerLink="/crearusuario">
+          <button class="btn btn-primary" *ngIf="isSuperadmin()">Crear Usuario</button>
+        </a>
+      </div>
+
+      <!-- Indicador de Carga -->
+      <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
+      <!-- Mensaje de Error -->
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <!-- Tabla de Usuarios -->
+      <div *ngIf="!isLoading && !error" class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Rol</th>
+              <th scope="col" *ngIf="isSuperadmin()">Acciones</th> <!-- Columna solo visible para Superadmin -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.id }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td *ngIf="isSuperadmin()">
+                <a [routerLink]="['/admin/usuarios/editar', user.id]"
+                  class="btn btn-sm btn-warning me-2"
+                  [class.disabled]="user.id === authService.currentUserValue?.id"> <!-- Deshabilitado si es el usuario actual -->
+                  Editar
+                </a>
+                <button
+                  class="btn btn-sm btn-danger"
+                  (click)="deleteUser(user)"
+                  [disabled]="user.id === authService.currentUserValue?.id">
+                  Borrar
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="users.length === 0">
+              <td [attr.colspan]="isSuperadmin() ? 4 : 3" class="text-center">No hay usuarios registrados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>

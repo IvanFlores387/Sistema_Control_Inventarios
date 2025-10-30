@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Historial de Movimientos</h2>
+    <button class="btn btn-secondary" (click)="loadHistorial()" [disabled]="isLoading">
+      <i class="bi bi-arrow-clockwise"></i> Recargar
+    </button>
+  </div>
+
+  <!-- Indicador de Carga -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Mensaje de Error -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Tabla de Movimientos -->
+  <div *ngIf="!isLoading && !error" class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">Fecha</th>
+          <th scope="col">Tipo</th>
+          <th scope="col">SKU</th>
+          <th scope="col">Producto</th>
+          <th scope="col">Cantidad</th>
+          <!-- COLUMNA CONDICIONAL: Solo se muestra si el usuario es Superadmin -->
+          <th scope="col" *ngIf="isSuperadmin()">Usuario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mov of movimientos">
+          <!-- Usamos el pipe 'date' para formatear la fecha -->
+          <td>{{ mov.Fecha | date:'dd/MM/yyyy h:mm a' }}</td>
+          <td>
+            <!-- Usamos 'ngClass' para colorear el tipo de movimiento -->
+            <span class="badge" [ngClass]="mov.tipo === 'Entrada' ? 'bg-success' : 'bg-danger'">
+              {{ mov.tipo }}
+            </span>
+          </td>
+          <td>{{ mov.SKU }}</td>
+          <td>{{ mov.Nombre_Producto }}</td>
+          <!-- Mostramos la cantidad con un + o - -->
+          <td>
+            <strong [ngClass]="mov.tipo === 'Entrada' ? 'text-success' : 'text-danger'">
+              {{ mov.tipo === 'Entrada' ? '+' : '-' }}{{ mov.Cantidad }}
+            </strong>
+          </td>
+          <!-- CELDA CONDICIONAL: Solo se muestra si es Superadmin -->
+          <td *ngIf="isSuperadmin()">{{ mov.Email_Usuario }}</td>
+        </tr>
+        <!-- Mensaje si no hay movimientos -->
+        <tr *ngIf="movimientos.length === 0">
+          <td [attr.colspan]="isSuperadmin() ? 6 : 5" class="text-center">
+            No hay movimientos para mostrar.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
